@@ -84,6 +84,7 @@ class ProductShowCaseListView extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: children,
+                //  prototypeItem: const PrototypeProduct(),   
               ),
             ),
           ),

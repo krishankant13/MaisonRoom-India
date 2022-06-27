@@ -127,17 +127,17 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
                       borderSide:
-                          BorderSide(color: Colors.grey.shade400, width: 0),
+                          BorderSide(color: Colors.grey.shade400, width: 1),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
                       borderSide:
-                          BorderSide(color: Colors.grey.shade700, width: 0),
+                          BorderSide(color: Colors.grey.shade400, width: 1),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
                       borderSide: BorderSide(
-                          color: Colors.grey.shade400, width: 1),
+                          color: Colors.blue.shade400, width: 1),
                     ),
                     contentPadding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 14),

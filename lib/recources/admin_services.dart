@@ -3,8 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:maison_room/model/image_model.dart';
 import 'package:maison_room/model/multi_image_product_model.dart';
+import 'package:maison_room/model/property_request_model.dart';
 import 'package:maison_room/profile/profile_user_model.dart';
 import '../model/review_model.dart';
 import '../model/user_details_model.dart';
@@ -142,7 +144,7 @@ class AdminServices {
     required String furnishedLevel,
     required String ownershipCategory,
     required String brokerage,
-    required List<File> images,
+    required List<XFile>? images,
     required String sellerName,
     required String sellerUid,
   }) async {
@@ -157,7 +159,7 @@ class AdminServices {
         final cloudinary = CloudinaryPublic('dolrrqlsf', 'ixjs8wx0');
         List<String> imageUrls = [];
 
-        for (int i = 0; i < images.length; i++) {
+        for (int i = 0; i < images!.length; i++) {
           CloudinaryResponse res = await cloudinary.uploadFile(
             CloudinaryFile.fromFile(images[i].path, folder: sellerName),
           );
@@ -196,22 +198,81 @@ class AdminServices {
     }
     return output;
   }
+  Future<String> postRequest({
+    // required BuildContext context,
+    required String addressDetails,
+    required String rent,
+    required String renterCategory,
+    required String cityCategory,
+    required String renterName,
+    required String sellerUid,
+    required String contact,
+  }) async {
+    // final userProvider = Provider.of<UserProvider>(context, listen: false);
+    // ignore: unused_local_variable
+    String output = "Something went wrong";
+    // ignore: unrelated_type_equality_checks
+    if ( contact!= "" && renterName != "" && rent != "") {
+      try {
+        String uid = Utils().getUid();
+
+        PropertyRequestModel propertyRequestModel = PropertyRequestModel(
+          addressDetails: addressDetails,
+          cityCategory: cityCategory,
+          rent: rent,
+          contact: contact,
+          renterCategory: renterCategory,
+          sellerUid: sellerUid,
+          renterName: renterName, 
+        );
+        await FirebaseFirestore.instance
+            .collection("property requests")
+            .doc()
+            .set(propertyRequestModel.getJson());
+
+        output = "success";
+      } catch (e) {
+        output = e.toString();
+      }
+    } else {
+      output = "Please make sure all the fields are not empty";
+    }
+    return output;
+  }
 
   // Fetched Products
-
-  Future<List<Product>> fetchAllProducts() async {
+    ScrollController scrollController = ScrollController();
+    
+  Future<List<Product>> fetchAllProducts(context) async {
     List<Product> productList = [];
     QuerySnapshot<Map<String, dynamic>> snap =
-        await firebaseFirestore.collection("products").get();
+        await firebaseFirestore.collection("products").limit(5).get();
 
     for (int i = 0; i < snap.docs.length; i++) {
       DocumentSnapshot docSnap = snap.docs[i];
       Product product =
           Product.getModelFromJson(json: (docSnap.data() as dynamic));
       productList.add(product);
-    }
+    } 
+   scrollController.addListener(() {  
+         double maxScroll = scrollController.position.maxScrollExtent;  
+         double currentScroll = scrollController.position.pixels;  
+         double delta = MediaQuery.of(context).size.height * 0.20;  
+         if (maxScroll - currentScroll <= delta) {  
+           fetchAllProducts(context);  
+         }  
+       }); 
+
     return productList;
   }
+     
+
+
+
+
+
+
+
 
   Future<List<ImageModel>> fetchAllimage() async {
     List<ImageModel> imageList = [];

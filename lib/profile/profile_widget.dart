@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:maison_room/utils/color_theme.dart';
 import 'package:provider/provider.dart';
 
 import '../model/user_details_model.dart';
@@ -41,7 +42,7 @@ class ProfileWidget extends StatelessWidget {
     );
     return ClipOval(
       child: Material(
-        color: Colors.white70,
+        color:backgroundColor,
         child: Ink.image(
           image: image,
           

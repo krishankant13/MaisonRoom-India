@@ -27,9 +27,10 @@ class _PostsScreenState extends State<PostsScreen> {
     super.initState();
     fetchAllProducts();
   }
+  
 
   fetchAllProducts() async {
-    products = (await adminServices.fetchAllProducts()).cast<Product>();
+    products = (await adminServices.fetchAllProducts(context));
     if (!mounted) return;
     setState(() {});
   }

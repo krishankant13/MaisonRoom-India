@@ -6,7 +6,7 @@ import 'package:maison_room/utils/input_decoration.dart';
 import '../screens/property_details_screen.dart';
 import '../utils/color_theme.dart';
 
-class SimpleProductWidget extends StatelessWidget {
+class SimpleProductWidget extends StatefulWidget {
   final Product product;
 
   const SimpleProductWidget({
@@ -15,13 +15,21 @@ class SimpleProductWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<SimpleProductWidget> createState() => _SimpleProductWidgetState();
+}
+
+class _SimpleProductWidgetState extends State<SimpleProductWidget> {
+  
+
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PropertyDetailsScreen(product: product),
+            builder: (context) => PropertyDetailsScreen(product: widget.product),
           ),
         );
       },
@@ -47,7 +55,7 @@ class SimpleProductWidget extends StatelessWidget {
                         //   placeholder: kTransparentImage,
                         //   image: product.images[0],
                         // ),
-                       child:  Image.network(product.images[0],
+                       child:  Image.network(widget.product.images[0],
                      errorBuilder: (context, error, stackTrace) => Image.asset('assets/placeholder.png'),
                      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) => Padding(
                      padding: const EdgeInsets.all(8.0),
@@ -56,7 +64,7 @@ class SimpleProductWidget extends StatelessWidget {
                        ),
                       ),),
                   Text(
-                    "Rent:  ₹${product.rent}",
+                    "Rent:  ₹${widget.product.rent}",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -65,13 +73,13 @@ class SimpleProductWidget extends StatelessWidget {
                         color: darkCreamColor),
                   ),
                   Text(
-                    "City: ${product.cityCategory}",
+                    "City: ${widget.product.cityCategory}",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                  style: GoogleFonts.roboto(fontSize: 11,letterSpacing: 0.6, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
                   ),
                   Text(
-                    "Category: ${product.roomCategory}",
+                    "Category: ${widget.product.roomCategory}",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                      style: GoogleFonts.roboto(fontSize: 11,letterSpacing: 0.6, fontWeight: FontWeight.w500, color: Colors.grey.shade600),

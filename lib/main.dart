@@ -97,7 +97,7 @@ class MaisonRoom extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Icon(
-                            Icons.search,
+                            Icons.home,
                             color: activeCyanColor,
                             size: 30,
                           ),
@@ -126,7 +126,7 @@ class MaisonRoom extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Icon(
-                            Icons.search,
+                            Icons.home,
                             color: activeCyanColor,
                             size: 30,
                           ),
@@ -152,7 +152,7 @@ class MaisonRoom extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Icon(
-                            Icons.search,
+                            Icons.home,
                             color: activeCyanColor,
                             size: 30,
                           ),

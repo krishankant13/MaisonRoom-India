@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:maison_room/screens/account_screen.dart';
 import 'package:maison_room/screens/home_screen.dart';
+import 'package:maison_room/screens/more_screen.dart';
 import 'package:maison_room/utils/input_decoration.dart';
 import '../screens/property_post_screen.dart';
 import '../screens/cart_screen.dart';
@@ -28,7 +29,7 @@ const List<Widget> screens = [
   HomeScreen(),
   AccountScreen(),
   CartScreen(),
-  PostsScreen()
+  MoreScreen(),
   
 ];
 

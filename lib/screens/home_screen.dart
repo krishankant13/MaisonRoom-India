@@ -27,6 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget>? hostel;
   List<Widget>? all;
 
+
+
+
+
+  
+
   @override
   void initState() {
     super.initState();
@@ -64,7 +70,6 @@ class _HomeScreenState extends State<HomeScreen> {
     Size screenSize = Utils().getScreenSize();
     double height = screenSize.height / 3;
     double titleHeight = 25;
-      int activeIndex = 0;
     
   
     return Scaffold(
@@ -268,3 +273,29 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+// pagination code
+
+  // FirebaseFirestore firestore = FirebaseFirestore.instance;
+  // List<DocumentSnapshot> _products = [];
+  // bool isLoading = true;
+
+  // _getProducts() async {
+  //   Query query =
+  //       firestore.collection("products").orderBy("sellerName").limit(4);
+
+  //   isLoading = true;
+  //   QuerySnapshot querySnapshot = await query.get();
+  //   _products = querySnapshot.docs;
+  //   isLoading = false;
+  // }

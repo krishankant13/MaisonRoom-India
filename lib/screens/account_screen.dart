@@ -64,6 +64,7 @@ class _AccountScreenState extends State<AccountScreen> {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
+                IntroductionWidgetAccountScreen(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -108,7 +109,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 1,
-                            primary: Colors.blue.shade600,
+                            primary: activeCyanColor,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -145,6 +146,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         .collection("users")
                         .doc(FirebaseAuth.instance.currentUser!.uid)
                         .collection("orders")
+                        .limit(4)
                         .get(),
                     builder: (context,
                         AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
@@ -160,11 +162,11 @@ class _AccountScreenState extends State<AccountScreen> {
                           children.add(SimpleProductWidget(product: product));
                         }
                         return OrderShowCaseListView(
-                            title: "Your Order", children: children);
+                            title: "Request Send", children: children);
                       }
                     }),
                 Text(
-                  'Order Request',
+                  'Room Request',
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                 ),
                 StreamBuilder(
@@ -294,7 +296,7 @@ class IntroductionWidgetAccountScreen extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Hello,',
+                      text: 'Hello,  ',
                       style: TextStyle(color: Colors.grey[800], fontSize: 17),
                     ),
                     TextSpan(
@@ -309,25 +311,18 @@ class IntroductionWidgetAccountScreen extends StatelessWidget {
                 ),
               ),
             ),
-            CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 30,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProfilePageOne(),
-                    ),
-                  );
-                },
-                icon: Icon(Icons.person),
-                color: darkBluishColor,
-              ),
-            ),
+         
           ],
         ),
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
