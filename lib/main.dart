@@ -17,12 +17,12 @@ void main() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
-            apiKey: "AIzaSyDS8l5IWioHILcgTcoKaff0PqOcsR0qU_g",
-            authDomain: "maison-room.firebaseapp.com",
-            projectId: "maison-room",
-            storageBucket: "maison-room.appspot.com",
-            messagingSenderId: "1031889549409",
-            appId: "1:1031889549409:web:33de5a8db2f6054898d220"));
+            apiKey: "",
+            authDomain: "",
+            projectId: "",
+            storageBucket: "",
+            messagingSenderId: "",
+            appId: ""));
   } else {
     await Firebase.initializeApp();
   }
