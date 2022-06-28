@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Product {
   final String maintenance;
   final String addressDetails;
@@ -18,6 +20,7 @@ class Product {
   final String sellerUid;
   final int rating;
   final int noOfRating;
+   Timestamp createdOn;
 
   Product({
     // this.id,
@@ -38,6 +41,7 @@ class Product {
     required this.sellerUid,
     required this.rating,
     required this.noOfRating,
+    required this.createdOn,
   });
 
   Map<String, dynamic> getJson() {
@@ -60,12 +64,14 @@ class Product {
       'sellerUid': sellerUid,
       'rating': rating,
       'noOfRating': noOfRating,
+       'createdOn':createdOn,
     };
   }
 
   factory Product.getModelFromJson({required Map<String, dynamic> json}) {
     return Product(
       rent: json["rent"],
+      createdOn:json['createdOn'],
       uid: json["uid"],
       sellerName: json["sellerName"],
       deposit: json["deposit"],
@@ -87,6 +93,7 @@ class Product {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'maintenance': maintenance,
+      'createdOn':createdOn,
       'addressDetails': addressDetails,
       'renterCategory': renterCategory,
       'deposit': deposit,
@@ -107,6 +114,7 @@ class Product {
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
       maintenance: map['maintenance'] as String,
+      createdOn:map['createdOn'] as Timestamp,
       addressDetails: map['addressDetails'] as String,
       images: List<String>.from(map['images'] as List<String>),
       renterCategory: map['renterCategory'] as String,

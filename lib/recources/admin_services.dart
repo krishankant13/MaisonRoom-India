@@ -168,6 +168,7 @@ class AdminServices {
 
         Product product = Product(
           maintenance: maintenance,
+          createdOn:Timestamp.now(),
           addressDetails: addressDetails,
           deposit: deposit,
           images: imageUrls,

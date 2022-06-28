@@ -142,7 +142,7 @@ class _PaginationPageState extends State<PaginationPage> {
                   // orderBy is compulsory to enable pagination
                   query: FirebaseFirestore.instance
                       .collection('products')
-                      .orderBy('sellerName'),
+                      .orderBy('createdOn'),
                   itemsPerPage: 2,
                   // to fetch real-time data
                   isLive: true,
