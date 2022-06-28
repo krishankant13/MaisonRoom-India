@@ -241,12 +241,11 @@ class AdminServices {
   }
 
   // Fetched Products
-    ScrollController scrollController = ScrollController();
-    
+  
   Future<List<Product>> fetchAllProducts(context) async {
     List<Product> productList = [];
     QuerySnapshot<Map<String, dynamic>> snap =
-        await firebaseFirestore.collection("products").limit(5).get();
+        await firebaseFirestore.collection("products").get();
 
     for (int i = 0; i < snap.docs.length; i++) {
       DocumentSnapshot docSnap = snap.docs[i];
@@ -254,15 +253,6 @@ class AdminServices {
           Product.getModelFromJson(json: (docSnap.data() as dynamic));
       productList.add(product);
     } 
-   scrollController.addListener(() {  
-         double maxScroll = scrollController.position.maxScrollExtent;  
-         double currentScroll = scrollController.position.pixels;  
-         double delta = MediaQuery.of(context).size.height * 0.20;  
-         if (maxScroll - currentScroll <= delta) {  
-           fetchAllProducts(context);  
-         }  
-       }); 
-
     return productList;
   }
      
