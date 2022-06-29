@@ -56,31 +56,54 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomMainButtom(
-                        color: Colors.blue.shade700,
-                        isLoading: false,
-                        onPressed: () {
-                          AdminServices().addProductToOrders(
-                              product: widget.product,
-                              userDetails: Provider.of<UserDetailsProvider>(
-                                      context,
-                                      listen: false)
-                                  .userDetails);
+                    widget.product.availabilityStatus == 'Available'
+                        ? CustomMainButtom(
+                            color: Color.fromARGB(255, 20, 130, 220),
+                            isLoading: false,
+                            onPressed: () {
+                              AdminServices().addProductToOrders(
+                                  product: widget.product,
+                                  userDetails: Provider.of<UserDetailsProvider>(
+                                          context,
+                                          listen: false)
+                                      .userDetails);
 
-                          // show snackbar.
+                              // show snackbar.
 
-                          Utils().showSnackBar(
-                              context: context, content: "Order Placed");
-                        },
-                        child: Text(
-                          "Contact Now",
-                          style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0.9),
-                          overflow: TextOverflow.ellipsis,
-                        )),
+                              Utils().showSnackBar(
+                                  context: context, content: "Order Placed");
+                            },
+                            child: Text(
+                              "Contact Now",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.9),
+                              overflow: TextOverflow.ellipsis,
+                            ))
+                        : CustomMainButtom(
+                            color: Colors.grey.shade400,
+                            isLoading: false,
+                            onPressed: () {
+                              AdminServices().sendOrderRequest(
+                                  product: widget.product,
+                                  userDetails: Provider.of<UserDetailsProvider>(
+                                          context,
+                                          listen: false)
+                                      .userDetails);
+
+                              // show snackbar.
+                            },
+                            child: Text(
+                              "Currently Unavailable",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.9),
+                              overflow: TextOverflow.ellipsis,
+                            )),
                     const SizedBox(width: 20),
                     CustomMainButtom(
                         color: darkCreamColor,
@@ -111,7 +134,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
         ),
       ),
       appBar: AppBar(
-        backgroundColor: darkCreamColor,
+        backgroundColor: Color.fromARGB(255, 20, 130, 220),
         title: Text(
           "Rental Property Details",
           style: GoogleFonts.lato(fontSize: 18, fontWeight: FontWeight.w600),
@@ -150,81 +173,105 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  CarouselSlider.builder(
-                                    itemCount: widget.product.images.length,
-                                    options: CarouselOptions(
-                                      onPageChanged: (index, reason) =>
-                                          setState((() => activeIndex = index)),
-                                      height: 280,
-                                      viewportFraction: 1,
-                                    ),
-                                    itemBuilder: (context, index, realIdx) {
-                                      return Container(
-                                        color: Colors.black,
-                                        child: Center(
-                                          child: SizedBox(
-                                            width: screenSize.width,
-                                            height: 280,
-                                            child: FittedBox(
-                                              fit: BoxFit.cover,
-                                              child: Image.network(
-                                                  widget.product.images[index],
-                                                  errorBuilder: (context, error,
-                                                          stackTrace) =>
-                                                      Image.asset(
-                                                          'assets/placeholder.png'),
-                                                  frameBuilder: (context,
-                                                          child,
-                                                          frame,
-                                                          wasSynchronouslyLoaded) =>
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: child,
-                                                      ),
-                                                  filterQuality:
-                                                      FilterQuality.none,
-                                                  width: screenSize.width,
-                                                  loadingBuilder:
-                                                      (BuildContext context,
+                                  Stack(
+                                    children: 
+                                      [
+                                        CarouselSlider.builder(
+                                        itemCount: widget.product.images.length,
+                                        options: CarouselOptions(
+                                          onPageChanged: (index, reason) =>
+                                              setState(
+                                                  (() => activeIndex = index)),
+                                          height: 280,
+                                          viewportFraction: 1,
+                                        ),
+                                        itemBuilder: (context, index, realIdx) {
+                                          return Container(
+                                            color: Colors.black,
+                                            child: Center(
+                                              child: SizedBox(
+                                                width: screenSize.width,
+                                                height: 280,
+                                                child: FittedBox(
+                                                  fit: BoxFit.cover,
+                                                  child: Image.network(
+                                                      widget.product
+                                                          .images[index],
+                                                      errorBuilder: (context,
+                                                              error,
+                                                              stackTrace) =>
+                                                          Image.asset(
+                                                              'assets/placeholder.png'),
+                                                      frameBuilder: (context,
+                                                              child,
+                                                              frame,
+                                                              wasSynchronouslyLoaded) =>
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: child,
+                                                          ),
+                                                      filterQuality:
+                                                          FilterQuality.none,
+                                                      width: screenSize.width,
+                                                      loadingBuilder: (BuildContext
+                                                              context,
                                                           Widget child,
                                                           ImageChunkEvent?
                                                               loadingProgress) {
-                                                    if (loadingProgress ==
-                                                        null) {
-                                                      return child;
-                                                    }
-                                                    return Center(
-                                                      widthFactor: 10,
-                                                      heightFactor: 10,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(2.0),
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          strokeWidth: 3,
-                                                          backgroundColor:
-                                                              Colors.blue,
-                                                          color: Colors.white,
-                                                          value: loadingProgress
-                                                                      .expectedTotalBytes !=
-                                                                  null
-                                                              ? loadingProgress
-                                                                      .cumulativeBytesLoaded /
-                                                                  loadingProgress
-                                                                      .expectedTotalBytes!
-                                                              : null,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }),
+                                                        if (loadingProgress ==
+                                                            null) {
+                                                          return child;
+                                                        }
+                                                        return Center(
+                                                          widthFactor: 10,
+                                                          heightFactor: 10,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(2.0),
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              strokeWidth: 3,
+                                                              backgroundColor:
+                                                                  Colors.blue,
+                                                              color:
+                                                                  Colors.white,
+                                                              value: loadingProgress
+                                                                          .expectedTotalBytes !=
+                                                                      null
+                                                                  ? loadingProgress
+                                                                          .cumulativeBytesLoaded /
+                                                                      loadingProgress
+                                                                          .expectedTotalBytes!
+                                                                  : null,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      );
-                                    },
+                                          );
+                                        },
+                                      ),
+                                         Positioned( right: 2, bottom: 2,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CarouselFullScreen(
+                                                            product:
+                                                                widget.product),
+                                                  ),
+                                                );
+                                              },
+                                              icon: Card( color: Colors.white, elevation: 1,
+                                                child: Icon(Icons.zoom_in_outlined, color: Colors.black, size: 30,))))
+                                    ],
                                   ),
                                   const SizedBox(
                                     height: 10,

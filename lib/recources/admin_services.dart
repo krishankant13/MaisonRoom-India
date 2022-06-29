@@ -104,6 +104,11 @@ class AdminServices {
     await firebaseFirestore.collection("products").doc(productUid).delete();
   }
 
+  Future updatePropertyDetails(
+      {required Product product, required String productUid, required String addressDetails, required String availabilityStatus, required String rent}) async {
+    await firebaseFirestore.collection("products").doc(productUid).update({"addressDetails":addressDetails, "availabilityStatus":availabilityStatus,"rent":rent});
+  }
+
   Future getNameAndAddressAndEmail() async {
     DocumentSnapshot snap = await firebaseFirestore
         .collection("users")
@@ -138,6 +143,7 @@ class AdminServices {
     required String addressDetails,
     required String rent,
     required String deposit,
+    required String availabilityStatus,
     required String renterCategory,
     required String roomCategory,
     required String cityCategory,
@@ -168,6 +174,7 @@ class AdminServices {
 
         Product product = Product(
           maintenance: maintenance,
+          createdOn:Timestamp.now(),
           addressDetails: addressDetails,
           deposit: deposit,
           images: imageUrls,
@@ -175,6 +182,7 @@ class AdminServices {
           roomCategory: roomCategory,
           cityCategory: cityCategory,
           furnishedLevel: furnishedLevel,
+          availabilityStatus:availabilityStatus,
           ownershipCategory: ownershipCategory,
           brokerage: brokerage,
           rent: rent,
@@ -207,6 +215,7 @@ class AdminServices {
     required String renterName,
     required String sellerUid,
     required String contact,
+    required String roomCategory,
   }) async {
     // final userProvider = Provider.of<UserProvider>(context, listen: false);
     // ignore: unused_local_variable
@@ -224,6 +233,7 @@ class AdminServices {
           renterCategory: renterCategory,
           sellerUid: sellerUid,
           renterName: renterName, 
+          roomCategory:roomCategory,
         );
         await FirebaseFirestore.instance
             .collection("property requests")
@@ -241,12 +251,11 @@ class AdminServices {
   }
 
   // Fetched Products
-    ScrollController scrollController = ScrollController();
-    
+  
   Future<List<Product>> fetchAllProducts(context) async {
     List<Product> productList = [];
     QuerySnapshot<Map<String, dynamic>> snap =
-        await firebaseFirestore.collection("products").limit(5).get();
+        await firebaseFirestore.collection("products").get();
 
     for (int i = 0; i < snap.docs.length; i++) {
       DocumentSnapshot docSnap = snap.docs[i];
@@ -254,15 +263,6 @@ class AdminServices {
           Product.getModelFromJson(json: (docSnap.data() as dynamic));
       productList.add(product);
     } 
-   scrollController.addListener(() {  
-         double maxScroll = scrollController.position.maxScrollExtent;  
-         double currentScroll = scrollController.position.pixels;  
-         double delta = MediaQuery.of(context).size.height * 0.20;  
-         if (maxScroll - currentScroll <= delta) {  
-           fetchAllProducts(context);  
-         }  
-       }); 
-
     return productList;
   }
      

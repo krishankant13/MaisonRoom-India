@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Product {
   final String maintenance;
   final String addressDetails;
@@ -8,6 +10,7 @@ class Product {
   final String renterCategory;
   final String roomCategory;
   final String furnishedLevel;
+  final String availabilityStatus;
   final String ownershipCategory;
   final String brokerage;
   final String cityCategory;
@@ -18,6 +21,7 @@ class Product {
   final String sellerUid;
   final int rating;
   final int noOfRating;
+   Timestamp createdOn;
 
   Product({
     // this.id,
@@ -28,6 +32,7 @@ class Product {
     required this.renterCategory,
     required this.roomCategory,
     required this.furnishedLevel,
+    required this.availabilityStatus,
     required this.ownershipCategory,
     required this.brokerage,
     required this.cityCategory,
@@ -38,6 +43,7 @@ class Product {
     required this.sellerUid,
     required this.rating,
     required this.noOfRating,
+    required this.createdOn,
   });
 
   Map<String, dynamic> getJson() {
@@ -50,6 +56,7 @@ class Product {
       'renterCategory': renterCategory,
       'roomCategory': roomCategory,
       'furnishedLevel':furnishedLevel,
+      'availabilityStatus':availabilityStatus,
       'cityCategory': cityCategory,
       'ownershipCategory': ownershipCategory,
       'brokerage': brokerage,
@@ -60,12 +67,14 @@ class Product {
       'sellerUid': sellerUid,
       'rating': rating,
       'noOfRating': noOfRating,
+       'createdOn':createdOn,
     };
   }
 
   factory Product.getModelFromJson({required Map<String, dynamic> json}) {
     return Product(
       rent: json["rent"],
+      createdOn:json['createdOn'],
       uid: json["uid"],
       sellerName: json["sellerName"],
       deposit: json["deposit"],
@@ -76,6 +85,7 @@ class Product {
       renterCategory: json['renterCategory'],
       roomCategory: json['roomCategory'],
       furnishedLevel:json["furnishedLevel"],
+      availabilityStatus:json["availabilityStatus"],
       ownershipCategory:json["ownershipCategory"],
       brokerage:json["brokerage"],
       cityCategory: json['cityCategory'],
@@ -87,11 +97,13 @@ class Product {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'maintenance': maintenance,
+      'createdOn':createdOn,
       'addressDetails': addressDetails,
       'renterCategory': renterCategory,
       'deposit': deposit,
       'roomCategory': roomCategory,
       "furnishedLevel":furnishedLevel,
+      "availabilityStatus":availabilityStatus,
       "ownershipCategory":ownershipCategory,
       "brokerage":brokerage,
       'cityCategory': cityCategory,
@@ -107,11 +119,13 @@ class Product {
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
       maintenance: map['maintenance'] as String,
+      createdOn:map['createdOn'] as Timestamp,
       addressDetails: map['addressDetails'] as String,
       images: List<String>.from(map['images'] as List<String>),
       renterCategory: map['renterCategory'] as String,
       roomCategory: map['roomCategory'] as String,
       furnishedLevel:map["furnishedLevel"] as String,
+      availabilityStatus:map["availabilityStatus"] as String,
       ownershipCategory:map["ownershipCategory"] as String,
       brokerage:map["brokerage"] as String,
       cityCategory: map['cityCategory'] as String,

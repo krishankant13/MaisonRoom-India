@@ -50,6 +50,14 @@ class _PropertyRequestScreenState extends State<PropertyRequestScreen> {
     "15000-20000",
   
   ];
+    String roomCategory = 'Single Room';
+  List<String> roomTypeCategories = [
+    'Single Room',
+    'Double Room',
+    '1 BHK Flat',
+    '2 BHK Flat',
+    '3 BHK Flat'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(      backgroundColor: Colors.white,
@@ -79,7 +87,7 @@ class _PropertyRequestScreenState extends State<PropertyRequestScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -133,7 +141,7 @@ class _PropertyRequestScreenState extends State<PropertyRequestScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 10),
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
                           child: Text(
@@ -185,7 +193,7 @@ class _PropertyRequestScreenState extends State<PropertyRequestScreen> {
                         ),
                        
                         
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 10),
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
                           child: Text(
@@ -199,6 +207,7 @@ class _PropertyRequestScreenState extends State<PropertyRequestScreen> {
                         const SizedBox(
                           height: 5,
                         ),
+
                         Padding(
                           padding: const EdgeInsets.only(left: 0),
                           child: Container(
@@ -235,7 +244,68 @@ class _PropertyRequestScreenState extends State<PropertyRequestScreen> {
                             ),
                           ),
                         ),
-                    const SizedBox(height: 25),
+                       const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        "Room Type",
+                        style: GoogleFonts.lato(
+                            color: darkCreamColor.withOpacity(0.8),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            border:
+                                Border.all(color: Colors.black38, width: 1)),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            dropdownColor: Colors.white,
+                            isExpanded: true,
+                            value: roomCategory,
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            items: roomTypeCategories.map((String item) {
+                              return DropdownMenuItem(
+                                value: item,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    item,
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey.shade700),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (String? newVal) {
+                              setState(() {
+                                roomCategory = newVal!;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 15),
                 CustomTextField(
                   controller: nameController,
                   labelText: 'Name',
@@ -249,7 +319,7 @@ class _PropertyRequestScreenState extends State<PropertyRequestScreen> {
                   hintText: 'Enter Your Mobile No.',
                   textInputType: TextInputType.number,
                 ),
-                const SizedBox(height: 25,),
+                const SizedBox(height: 15,),
                 CustomTextField(
                   controller: addressController,
                   labelText: 'Address',
@@ -258,7 +328,7 @@ class _PropertyRequestScreenState extends State<PropertyRequestScreen> {
                   
                   textInputType: TextInputType.streetAddress,
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
                 Row( mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                 ElevatedButton(onPressed: ()async{
@@ -268,6 +338,7 @@ class _PropertyRequestScreenState extends State<PropertyRequestScreen> {
                       addressDetails: addressController.text,
                       renterCategory: renterCategory,
                       cityCategory: cityCategory,
+                      roomCategory: roomCategory,
                        contact: contactController.text,
                         renterName: nameController.text,
                       // rent: double.parse(rentController.text),

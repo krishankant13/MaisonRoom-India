@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:maison_room/pagination/pagination.dart';
 import 'package:maison_room/screens/account_screen.dart';
 import 'package:maison_room/screens/home_screen.dart';
 import 'package:maison_room/screens/more_screen.dart';
@@ -29,7 +30,7 @@ const List<Widget> screens = [
   HomeScreen(),
   AccountScreen(),
   CartScreen(),
-  MoreScreen(),
+  PaginationPage(),
   
 ];
 

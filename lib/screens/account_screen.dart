@@ -64,7 +64,7 @@ class _AccountScreenState extends State<AccountScreen> {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
-                IntroductionWidgetAccountScreen(),
+            
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -73,7 +73,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 1,
-                            primary: darkCreamColor,
+                            primary: Colors.cyan.shade700,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -82,11 +82,11 @@ class _AccountScreenState extends State<AccountScreen> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: screenSize.width * 0.08),
                                 child: Text(
-                                  'Sign Out',
+                                  'Sign out',
                                   style: TextStyle(
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white,
                                     fontSize: 16,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
@@ -109,7 +109,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 1,
-                            primary: activeCyanColor,
+                            primary: Color.fromARGB(255, 0, 120, 210),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -165,9 +165,16 @@ class _AccountScreenState extends State<AccountScreen> {
                             title: "Request Send", children: children);
                       }
                     }),
-                Text(
-                  'Room Request',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                Row( mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Text(
+                        'Room Request',
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                      ),
+                    ),
+                  ],
                 ),
                 StreamBuilder(
                     stream: FirebaseFirestore.instance
@@ -182,7 +189,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         return Container();
                       } else {
                         return SizedBox(
-                          child: ListView.builder(
+                          child: snapshot.data!.docs.isNotEmpty? ListView.builder(
                               physics: ScrollPhysics(),
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
@@ -203,14 +210,14 @@ class _AccountScreenState extends State<AccountScreen> {
                                       ),
                                     );
                                   },
-                                  child: Card(
+                                  child:  Card(
                                     child: Padding(
                                       padding: const EdgeInsets.all(2.0),
                                       child: SingleChildScrollView(
                                         scrollDirection: Axis.vertical,
                                         child: ListTile(
                                           title: Text(
-                                            'Order:${model.name}',
+                                            'Name:${model.name}',
                                           ),
                                           subtitle: Text(
                                               'Contact: ${model.phoneNumber}'),
@@ -251,10 +258,16 @@ class _AccountScreenState extends State<AccountScreen> {
                                     ),
                                   ),
                                 );
-                              }),
+                              },
+                          ):  SizedBox( height: screenSize.height/3.5, width: double.infinity,
+                            child: const Center(child: Text("No request recieved", 
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400, 
+                              fontSize: 15),),),
+                          )
                         );
                       }
-                    })
+                    },),
               ],
             ),
           ),

@@ -49,7 +49,7 @@ class _MyPostScreenState extends State<MyPostScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(backgroundColor:darkCreamColor, title: const Text("My Post"),),
+        appBar: AppBar(title: const Text("My Post"),),
         body: mypost!=null
             ? Stack(
                 children: [

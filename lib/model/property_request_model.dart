@@ -6,6 +6,7 @@ class PropertyRequestModel {
   final String contact;
   final String renterCategory;
   final String cityCategory;
+  final String roomCategory;
   final String rent;
   final String renterName;
   final String sellerUid;
@@ -17,6 +18,7 @@ class PropertyRequestModel {
     required this.addressDetails,
     required this.contact,
     required this.renterCategory,
+    required this.roomCategory,
     required this.cityCategory,
     required this.rent,
     required this.renterName,
@@ -30,6 +32,7 @@ class PropertyRequestModel {
       'contact': contact,
       'renterCategory': renterCategory,
       'cityCategory': cityCategory,
+      'roomCategory': roomCategory,
       'rent': rent,
       'renterName': renterName,
       'sellerUid': sellerUid,
@@ -46,6 +49,7 @@ class PropertyRequestModel {
       sellerUid: json["sellerUid"],
       renterCategory: json['renterCategory'],
       cityCategory: json['cityCategory'],
+      roomCategory: json['roomCategory'],
       addressDetails: json['addressDetails'],
     );
   }
@@ -56,6 +60,7 @@ class PropertyRequestModel {
       'contact': contact,
       'renterCategory': renterCategory,
       'cityCategory': cityCategory,
+      'roomCategory': roomCategory,
       'rent': rent,
 
       'renterName': renterName,
@@ -69,6 +74,7 @@ class PropertyRequestModel {
       contact: map['contact'] as String,
       renterCategory: map['renterCategory'] as String,
       cityCategory: map['cityCategory'] as String,
+      roomCategory: map['roomCategory'] as String,
       rent: map['rent'] as String,
       renterName: map['renterName'] as String,
       sellerUid: map['sellerUid'] as String,

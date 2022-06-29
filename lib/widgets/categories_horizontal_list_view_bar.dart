@@ -36,7 +36,7 @@ class CategoriesHorizontalListViewBar extends StatelessWidget {
                     SizedBox(
                       width: 80,
                       height: 35,
-                      child: Card(elevation: 0,
+                      child: Card(elevation: 1,
                         color: textFieldColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6),

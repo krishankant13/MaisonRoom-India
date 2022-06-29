@@ -40,8 +40,8 @@ class ProductShowCaseListView extends StatelessWidget {
                     title,
                     style: GoogleFonts.roboto(
                         color: darkCreamColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
                       ),
                   ),
                 ),
@@ -60,10 +60,10 @@ class ProductShowCaseListView extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: Text(
-                      "Show more",
+                      "See more",
                       style: GoogleFonts.roboto(
-                        color: Colors.blue.shade500,
-                        fontSize: 12,
+                        color: Colors.blue.shade600,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
