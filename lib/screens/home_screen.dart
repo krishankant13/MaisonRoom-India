@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: prefer_const_literals_to_create_immutables
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:maison_room/recources/admin_services.dart';
@@ -50,8 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
         await AdminServices().getProductsFromCategory("Student");
     List<Widget> category2 =
         await AdminServices().getProductsFromCategory("Family");
-    List<Widget> category3 =
-        await AdminServices().getProductsFromCategory("For Student And Family");
     List<Widget> category4 =
         await AdminServices().getProductsFromCategory("For All");
 
@@ -59,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       student = category1;
       family = category2;
-      hostel = category3;
       all = category4;
     });
   }
@@ -81,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //   hasBackButton: false,
       // ),
       body: SafeArea(
-        child: student != null && family != null && hostel != null && all!=null
+        child: student != null && family != null  && all!=null
             ? Stack(
                 children: [
                   RefreshIndicator(
@@ -89,7 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     displacement: 40,
                     backgroundColor: Colors.grey.shade200,
                     onRefresh: () {
-                      return Future.delayed(const Duration(seconds: 1));
+                      return 
+                      Future.delayed(const Duration(seconds: 1));
                     },
                     child:
                      SingleChildScrollView(
@@ -114,15 +113,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               title: "For Family", query: 'Family',
                               children: family!),
                           // const Divider(height: 1, thickness: 1),
-                          ProductShowCaseListView(
-                              title: "For Student And Family",
-                              query: 'For Student And Family',
-                              children: hostel!),
                           // const Divider(height: 1, thickness: 1),
                           ProductShowCaseListView(
                               title: "For All", query: 'For All',
                               children: all!),
-                          // const Divider(height: 1, thickness: 1),
+
+
                         ],
                       ),
                     ),

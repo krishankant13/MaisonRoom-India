@@ -14,9 +14,6 @@ import 'package:maison_room/utils/input_decoration.dart';
 import 'package:maison_room/utils/utils.dart';
 import 'package:maison_room/widgets/custom_main_button.dart';
 import 'package:provider/provider.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-import '../components/utils2.dart';
 import '../providers/user_details_provider.dart';
 import '../utils/color_theme.dart';
 
@@ -91,6 +88,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
     'Fully Furnished',
   ];
 
+  String availabilityStatus = 'Available';
+  List<String> availabilityStatusCategory = [
+    'Available',
+    'Unavailable',
+  ];
+
   String ownershipCategory = "Owner";
   var ownershipCategoryType = {
     'Owner': 'O',
@@ -98,13 +101,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
   };
 
   final List categories = [];
-  countryDependentDropDown() {
+  ownershipDependentDropDown() {
     ownershipCategoryType.forEach((key, value) {
       categories.add(key);
     });
   }
 
-  String brokerage = "";
+  String brokerage = "₹0";
   var brokerageAmount = {
     '₹0': 'O',
     '50% Of Rent Amount': 'A',
@@ -136,7 +139,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   void initState() {
     super.initState();
-    countryDependentDropDown();
+    ownershipDependentDropDown();
   }
 
   void postProperty() {
@@ -150,6 +153,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         roomCategory: roomCategory,
         cityCategory: cityCategory,
         furnishedLevel: furnishedLevel,
+        availabilityStatus:availabilityStatus,
         ownershipCategory: ownershipCategory,
         brokerage: brokerage,
         images: images,
@@ -238,26 +242,36 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     ),
                   ),
                   Positioned(
-                      bottom: 2,
-                      right: 2,
-                      child: ElevatedButton(
-                          style:
-                              ElevatedButton.styleFrom(primary: Colors.green),
-                          onPressed: () {
-                          images!.length<6 ? getMultiImages():null;
-                          },
-                          child: images!.length<6? Row(
-                            children: const [ Icon(Icons.add),
-                              Text("Add Images"),
-                            ],
-                          ):  const Text("Limit Exceed", style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),)
-                          ),),
+                    bottom: 2,
+                    right: 2,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: images!.length<6? const Color.fromARGB(255, 18, 135, 232):Colors.grey),
+                        onPressed: () {
+                          images!.length < 6 ? getMultiImages() : null;
+                        },
+                        child: images!.length < 6
+                            ? Row(
+                                children: const [
+                                  Icon(Icons.add),
+                                  Text("Add Images"),
+                                ],
+                              )
+                            : const Text(
+                                "Limit Exceed",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w500),
+                              )),
+                  ),
                 ],
               ),
 
-          
-             const Text("select Images one by one by clicking on Button", style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: activeCyanColor,)),
-                  const SizedBox(height: 20),
+              const Text("You can select more than one Image",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54,
+                  )),
+              const SizedBox(height: 20),
               CustomTextField(
                 controller: rentController,
                 labelText: 'Rent Amount Per Month',
@@ -518,6 +532,68 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ],
                 ),
               ),
+            
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        "Room Availability Status",
+                        style: GoogleFonts.lato(
+                            color: darkCreamColor.withOpacity(0.8),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            border:
+                                Border.all(color: Colors.black38, width: 1)),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            dropdownColor: Colors.white,
+                            alignment: Alignment.centerLeft,
+                            isExpanded: true,
+                            value: availabilityStatus,
+                            menuMaxHeight: screenSize.height / 3,
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            items: availabilityStatusCategory.map((String item) {
+                              return DropdownMenuItem(
+                                value: item,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    item,
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey.shade700),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (String? newVal) {
+                              setState(() {
+                                availabilityStatus = newVal!;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 10),
 
               DottedBorder(
@@ -670,6 +746,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     addressDetails: addressDetailsController.text,
                     deposit: depositController.text,
                     furnishedLevel: furnishedLevel,
+                    availabilityStatus:availabilityStatus,
                     images: images,
                     renterCategory: renterCategory,
                     roomCategory: roomCategory,
@@ -708,27 +785,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
     );
   }
 
-  Widget buildIndicator() => AnimatedSmoothIndicator(
-        activeIndex: activeIndex,
-        count: images!.length,
-        effect: const SlideEffect(
-            spacing: 8.0,
-            radius: 4.0,
-            dotWidth: 12.0,
-            dotHeight: 12.0,
-            paintStyle: PaintingStyle.stroke,
-            strokeWidth: 2,
-            dotColor: Colors.white,
-            activeDotColor: Colors.indigo),
-      );
 
   Future getMultiImages() async {
-    final List<XFile>? selectedImages = await multiPicker.pickMultiImage( imageQuality: 25);
-    setState(() {
-      if (selectedImages!.isNotEmpty) {
+    final List<XFile>? selectedImages =
+        await multiPicker.pickMultiImage(imageQuality: 20);
+    setState(() { 
+      if (selectedImages!=null) {
         images!.addAll(selectedImages);
-      } else {
-        print('No Images Selected ');
+      }  else {
+        return;
       }
     });
   }

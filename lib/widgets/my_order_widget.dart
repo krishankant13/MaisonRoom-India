@@ -37,7 +37,7 @@ class OrderShowCaseListView extends StatelessWidget {
                   child: Text(
                     title,
                     style: const TextStyle(
-                      fontSize: 17,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -57,10 +57,11 @@ class OrderShowCaseListView extends StatelessWidget {
                 child: SizedBox(
                   height: height - (titleHeight + 20),
                   width: screenSize.width,
-                  child: ListView(
+                  child: children.isNotEmpty?
+                   ListView(
                     scrollDirection: Axis.horizontal,
                     children: children ,
-                  ),
+                  ): const Center(child: Text("No Order Request Found!", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),),)
                 ),
               ),
             ),

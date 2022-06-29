@@ -10,6 +10,7 @@ class Product {
   final String renterCategory;
   final String roomCategory;
   final String furnishedLevel;
+  final String availabilityStatus;
   final String ownershipCategory;
   final String brokerage;
   final String cityCategory;
@@ -31,6 +32,7 @@ class Product {
     required this.renterCategory,
     required this.roomCategory,
     required this.furnishedLevel,
+    required this.availabilityStatus,
     required this.ownershipCategory,
     required this.brokerage,
     required this.cityCategory,
@@ -54,6 +56,7 @@ class Product {
       'renterCategory': renterCategory,
       'roomCategory': roomCategory,
       'furnishedLevel':furnishedLevel,
+      'availabilityStatus':availabilityStatus,
       'cityCategory': cityCategory,
       'ownershipCategory': ownershipCategory,
       'brokerage': brokerage,
@@ -82,6 +85,7 @@ class Product {
       renterCategory: json['renterCategory'],
       roomCategory: json['roomCategory'],
       furnishedLevel:json["furnishedLevel"],
+      availabilityStatus:json["availabilityStatus"],
       ownershipCategory:json["ownershipCategory"],
       brokerage:json["brokerage"],
       cityCategory: json['cityCategory'],
@@ -99,6 +103,7 @@ class Product {
       'deposit': deposit,
       'roomCategory': roomCategory,
       "furnishedLevel":furnishedLevel,
+      "availabilityStatus":availabilityStatus,
       "ownershipCategory":ownershipCategory,
       "brokerage":brokerage,
       'cityCategory': cityCategory,
@@ -120,6 +125,7 @@ class Product {
       renterCategory: map['renterCategory'] as String,
       roomCategory: map['roomCategory'] as String,
       furnishedLevel:map["furnishedLevel"] as String,
+      availabilityStatus:map["availabilityStatus"] as String,
       ownershipCategory:map["ownershipCategory"] as String,
       brokerage:map["brokerage"] as String,
       cityCategory: map['cityCategory'] as String,

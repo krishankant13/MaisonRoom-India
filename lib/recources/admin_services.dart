@@ -104,6 +104,11 @@ class AdminServices {
     await firebaseFirestore.collection("products").doc(productUid).delete();
   }
 
+  Future updatePropertyDetails(
+      {required Product product, required String productUid, required String addressDetails, required String availabilityStatus, required String rent}) async {
+    await firebaseFirestore.collection("products").doc(productUid).update({"addressDetails":addressDetails, "availabilityStatus":availabilityStatus,"rent":rent});
+  }
+
   Future getNameAndAddressAndEmail() async {
     DocumentSnapshot snap = await firebaseFirestore
         .collection("users")
@@ -138,6 +143,7 @@ class AdminServices {
     required String addressDetails,
     required String rent,
     required String deposit,
+    required String availabilityStatus,
     required String renterCategory,
     required String roomCategory,
     required String cityCategory,
@@ -176,6 +182,7 @@ class AdminServices {
           roomCategory: roomCategory,
           cityCategory: cityCategory,
           furnishedLevel: furnishedLevel,
+          availabilityStatus:availabilityStatus,
           ownershipCategory: ownershipCategory,
           brokerage: brokerage,
           rent: rent,

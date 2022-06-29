@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:maison_room/model/multi_image_product_model.dart';
+import 'package:maison_room/myPost/Edit_Property_screeen.dart';
 import 'package:maison_room/utils/input_decoration.dart';
 import '../recources/admin_services.dart';
 import '../screens/property_details_screen.dart';
@@ -30,62 +31,90 @@ class MyPostSingleProperty extends StatelessWidget {
         color: creamColor,
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: Card(color: Colors.white, elevation: 1,
+          child: Card(
+            color: Colors.white,
+            elevation: 1,
             child: Padding(
               padding: const EdgeInsets.only(left: 8),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                
                   children: [
-                    SizedBox( height: screenSize.height/5.5, width: screenSize.width/2.4,
-                      child: FittedBox( fit: BoxFit.fill,
+                    SizedBox(
+                      height: screenSize.height / 5.5,
+                      width: screenSize.width / 2.4,
+                      child: FittedBox(
+                        fit: BoxFit.fill,
                         child: Image.network(
                           product.images[0],
                           filterQuality: FilterQuality.none,
-                          ))),
-                      
+                        ),
+                      ),
+                    ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                      child: Column( mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Rent:  ₹${product.rent}", maxLines: 1,
+                          Text(
+                            "Rent:  ₹${product.rent}",
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,),
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                         SizedBox(height: 5),
+                          SizedBox(height: 5),
                           Text(
                             "Deposit: ${product.deposit}",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                            style: TextStyle(
+                                fontSize: 13, fontWeight: FontWeight.w500),
                           ),
-                         SizedBox(height:5),
+                          SizedBox(height: 5),
                           Text(
                             "Category: ${product.roomCategory}",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                            style: TextStyle(
+                                fontSize: 13, fontWeight: FontWeight.w500),
                           ),
-                           SizedBox(height: 10),
-                           Row( mainAxisAlignment: MainAxisAlignment.end,
-                             children: [
-                               IconButton(onPressed: (){
+                          SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(width: 120, height: 35,
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditPropertyScreen(product: product,),
+                                        ),
+                                      );
+                                    },
+                                    child: Text("Edit Details", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),)),
+                              ),
+                              // SizedBox(width: 25),
+                              // IconButton(
+                              //     onPressed: () async {
+                              //       await AdminServices().deletePropertyDetails(
+                              //         product: product,
+                              //         productUid: product.uid,
+                              //       );
 
-                                    
-                               }, icon: Icon(Icons.edit)),
-                               SizedBox(width: 25),
-                               IconButton(onPressed: () async {
-                                  await AdminServices().deletePropertyDetails(
-                                                 product: product, productUid: product.uid,);
-
-                                          Utils().showSnackBar(
-                                              context: context,
-                                              content: 'property Deleted.');
-                               }, icon: Icon(Icons.delete)),
-                           
-                             ],
-                           )
+                              //       Utils().showSnackBar(
+                              //           context: context,
+                              //           content: 'property Deleted.');
+                              //     },
+                              //     icon: Icon(Icons.delete)),
+                            ],
+                          )
                         ],
                       ),
                     ),
