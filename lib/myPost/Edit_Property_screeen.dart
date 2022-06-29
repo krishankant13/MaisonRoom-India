@@ -11,10 +11,10 @@ import 'package:maison_room/widgets/custom_main_button.dart';
 import '../components/custom_text_field.dart';
 import '../recources/admin_services.dart';
 import '../utils/input_decoration.dart';
-import '../utils/utils.dart';
+
 
 class EditPropertyScreen extends StatefulWidget {
-    final Product product;
+  final Product product;
   const EditPropertyScreen({
     Key? key,
     required this.product,
@@ -26,7 +26,8 @@ class EditPropertyScreen extends StatefulWidget {
 
 class _EditPropertyScreenState extends State<EditPropertyScreen> {
   final TextEditingController rentController = TextEditingController();
-  final TextEditingController addressDetailsController = TextEditingController();
+  final TextEditingController addressDetailsController =
+      TextEditingController();
   bool isLoading = false;
 
   @override
@@ -34,7 +35,6 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
     super.dispose();
     rentController.dispose();
     addressDetailsController.dispose();
-
   }
 
   String availabilityStatus = 'Available';
@@ -141,23 +141,32 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                 height: 50,
                 child: Expanded(
                   child: CustomMainButtom(
-                      isLoading: isLoading,
+                    isLoading: isLoading,
                     onPressed: () async {
-                       setState(() {
-                    isLoading = true;
-                  });
-                     await AdminServices().updatePropertyDetails(
-                    addressDetails: addressDetailsController.text,
-                    availabilityStatus:availabilityStatus,
-                    rent: rentController.text,
-                    productUid: widget.product.uid, product:widget.product,
-                  ).then((value) => showSnackBar(context, "Property Details Updated")).then((value) => Navigator.pop(context)); 
-                    if (!mounted) return;
-                  setState(() {
-                    isLoading = false;
-                  });  
+                      if (rentController.text.isNotEmpty &&
+                          addressDetailsController.text.isNotEmpty) {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        await AdminServices()
+                            .updatePropertyDetails(
+                              addressDetails: addressDetailsController.text,
+                              availabilityStatus: availabilityStatus,
+                              rent: rentController.text,
+                              productUid: widget.product.uid,
+                              product: widget.product,
+                            )
+                            .then((value) => showSnackBar(
+                                context, "Property Details Updated"))
+                            .then((value) => Navigator.pop(context));
+                        if (!mounted) return;
+                        setState(() {
+                          isLoading = false;
+                        });
+                      } else {
+                        showSnackBar(context, "Please Fill All Fields");
+                      }
                     },
-
                     color: Colors.blue,
                     child: const Text("Update Property Details"),
                   ),

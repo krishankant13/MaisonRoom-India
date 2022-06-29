@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:maison_room/model/multi_image_product_model.dart';
 import 'package:maison_room/myPost/Edit_Property_screeen.dart';
 import 'package:maison_room/utils/input_decoration.dart';
-import '../recources/admin_services.dart';
 import '../screens/property_details_screen.dart';
 import '../utils/color_theme.dart';
-import '../utils/utils.dart';
 
 class MyPostSingleProperty extends StatelessWidget {
   final Product product;

@@ -215,6 +215,7 @@ class AdminServices {
     required String renterName,
     required String sellerUid,
     required String contact,
+    required String roomCategory,
   }) async {
     // final userProvider = Provider.of<UserProvider>(context, listen: false);
     // ignore: unused_local_variable
@@ -232,6 +233,7 @@ class AdminServices {
           renterCategory: renterCategory,
           sellerUid: sellerUid,
           renterName: renterName, 
+          roomCategory:roomCategory,
         );
         await FirebaseFirestore.instance
             .collection("property requests")

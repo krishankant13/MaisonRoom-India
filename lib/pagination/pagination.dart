@@ -38,8 +38,8 @@ class _PaginationPageState extends State<PaginationPage> {
       child: products == null
           ? const Loader()
           : Scaffold(
-            appBar: AppBar( backgroundColor: backgroundColor,
-              title: Card( color:backgroundColor,
+            appBar: AppBar( backgroundColor: backgroundColor, elevation: 1,
+              title: Card( color:backgroundColor, elevation: 0,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 0),
                           child: Row( mainAxisAlignment: MainAxisAlignment.center,

@@ -73,7 +73,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 1,
-                            primary: Colors.blueGrey,
+                            primary: Colors.cyan.shade700,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -217,7 +217,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                         scrollDirection: Axis.vertical,
                                         child: ListTile(
                                           title: Text(
-                                            'Order:${model.name}',
+                                            'Name:${model.name}',
                                           ),
                                           subtitle: Text(
                                               'Contact: ${model.phoneNumber}'),
